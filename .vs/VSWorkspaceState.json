@@ -1,0 +1,22 @@
+{
+  "OutputFoldersPerTargetSystem": {
+    "Local Machine": [
+      "out\\build\\debug",
+      "out\\build\\release"
+    ]
+  },
+  "ExpandedNodes": [
+    "",
+    "\\build",
+    "\\build\\generated",
+    "\\build\\meta_types",
+    "\\core",
+    "\\out",
+    "\\src",
+    "\\src\\grpc",
+    "\\src\\model",
+    "\\src\\Processing"
+  ],
+  "SelectedNode": "\\core\\LaserParamCalculator.cpp",
+  "PreviewInSolutionExplorer": false
+}
