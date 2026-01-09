@@ -67,6 +67,11 @@ void MainWindow::buildUi() {
     auto fileMenu = menuBar()->addMenu(tr("Connect"));
     auto actionConnect = fileMenu->addAction(tr("Connect gRPC Service"));
     connect(actionConnect, &QAction::triggered, this, &MainWindow::connectToServer);
+    auto modelMenu = menuBar()->addMenu(tr("3D model"));
+    auto actionImport = modelMenu->addAction(tr("importing model ..."));
+    auto actionSample = modelMenu->addAction(tr("show sample"));
+    connect(actionImport, &QAction::triggered, this, &MainWindow::importModel);
+    connect(actionSample, &QAction::triggered, this, &MainWindow::showSampleModel);
 
     statusBar()->showMessage(tr("Not connected"));
 }
@@ -191,6 +196,21 @@ void MainWindow::applyFreq() {
     request.set_freq(m_freq->value());
     m_client->setLaserFreq(request);
     m_log->append(tr("Applied laser frequency: %1").arg(formatFreq(request)));
+}
+
+void MainWindow::importModel() {
+    if (!m_modelViewer) {
+        return;
+    }
+    m_modelViewer->loadModelFromDialog();
+}
+
+void MainWindow::showSampleModel() {
+    if (!m_modelViewer) {
+        return;
+    }
+    m_modelViewer->showSampleModel();
+    m_log->append(tr("refreshed 3d"));
 }
 
 void MainWindow::onReply(const QString& operation, const QString& message) {

@@ -18,7 +18,20 @@ qt_standard_project_setup()
 # Protobuf / gRPC from vcpkg or system
 find_package(Protobuf REQUIRED)
 find_package(gRPC CONFIG REQUIRED)
-
+find_package(VTK REQUIRED COMPONENTS
+    CommonColor
+    CommonCore
+    FiltersSources
+    IOGeometry
+    InteractionStyle
+    RenderingContextOpenGL2
+    RenderingCore
+    RenderingQt
+    RenderingAnnotation
+    RenderingFreeType
+    RenderingOpenGL2
+    GUISupportQt
+)
 set(PROTO_FILE ${CMAKE_CURRENT_SOURCE_DIR}/proto/five_axis.proto)
 set(GENERATED_DIR ${CMAKE_CURRENT_BINARY_DIR}/generated)
 set(GENERATED_PROTO_SRCS ${GENERATED_DIR}/five_axis.pb.cc ${GENERATED_DIR}/five_axis.grpc.pb.cc)
@@ -70,6 +83,8 @@ qt_add_executable(FiveAxisQt6
     src/processing/ThreeAxisGenerator.h
     src/processing/TcpSocketWorker.cpp
     src/processing/TcpSocketWorker.h
+    src/view/ModelViewerWidget.cpp
+    src/view/ModelViewerWidget.h
 )
 
 target_include_directories(FiveAxisQt6 PRIVATE
@@ -83,6 +98,11 @@ target_link_libraries(FiveAxisQt6 PRIVATE
     Qt6::Quick
     Qt6::Network
     FiveAxisProtos
+    ${VTK_LIBRARIES}
 )
 
+vtk_module_autoinit(
+    TARGETS FiveAxisQt6
+    MODULES ${VTK_LIBRARIES}
+)
 install(TARGETS FiveAxisQt6 RUNTIME DESTINATION bin)

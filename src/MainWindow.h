@@ -13,7 +13,7 @@
 #include <QTreeWidget>
 #include <QUrl>
 #include <QTextEdit>
-
+#include "view/ModelViewerWidget.h"
 #include "grpc/FiveAxisClient.h"
 #include "view/DrawingPanel.h"
 
@@ -38,7 +38,8 @@ private slots:
     void onShapeRemoved(const QString& id, const QString& type);
     void showProjectContextMenu(const QPoint& pos);
     void onProjectSelectionChanged();
-
+    void importModel();
+    void showSampleModel();
 private:
     void buildUi();
     QWidget* buildLineTab();
@@ -57,6 +58,7 @@ private:
     QTreeWidget* m_projectTree{};
     QTreeWidgetItem* m_sceneRoot{};
     DrawingPanel* m_scenePreview{};
+    ModelViewerWidget* m_modelViewer{};
     QTabWidget* m_propertyTabs{};
     QTextEdit* m_log{};
     FiveAxisClient* m_client{};
