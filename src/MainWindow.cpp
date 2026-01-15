@@ -1,5 +1,6 @@
 #include "MainWindow.h"
 #include "view/DrawingPanel.h"
+#include "Processing/TcpSocketWorker.h"
 
 #include <QAction>
 #include <QApplication>
@@ -67,9 +68,16 @@ void MainWindow::buildUi() {
     auto fileMenu = menuBar()->addMenu(tr("Connect"));
     auto actionConnect = fileMenu->addAction(tr("Connect gRPC Service"));
     connect(actionConnect, &QAction::triggered, this, &MainWindow::connectToServer);
+	fileMenu->addSeparator();
+	/*m_actionStartTcp = fileMenu->addAction(tr("Start TCP"));
+	m_actionStopTcp = fileMenu->addAction(tr("Stop TCP"));
+	m_actionStopTcp->setEnabled(false);
+	connect(m_actionStartTcp, &QAction::triggered, this, &MainWindow::startTcpService);
+	connect(m_actionStopTcp, &QAction::triggered, this, &MainWindow::stopTcpService);*/
     auto modelMenu = menuBar()->addMenu(tr("3D model"));
-    auto actionImport = modelMenu->addAction(tr("importing model ..."));
+    auto actionImport = modelMenu->addAction(tr("importing model ..."));    
     auto actionSample = modelMenu->addAction(tr("show sample"));
+    
     connect(actionImport, &QAction::triggered, this, &MainWindow::importModel);
     connect(actionSample, &QAction::triggered, this, &MainWindow::showSampleModel);
 
